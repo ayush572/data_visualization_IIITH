@@ -1,13 +1,68 @@
 // const geojsondata = require('./app');
 const fs = require('fs');
 const CSVToJSON = require('csvtojson');
+const express = require('express');
+const upload = require('express-fileupload');
+const cookieParser = require('cookie-parser');
+const exp = require('constants');
 
-//reading the data from the json and converting it to the csv format
-CSVToJSON().fromFile("./Joined layer.csv").then(source=>{
-    fs.writeFile('./joined_layer.json',JSON.stringify(source),err=>{
-        console.log(err);
-    });
-})  
+
+//making the expressjs object
+const app = express();
+const port = process.env.PORT || 3000;
+
+//express middlewares here
+app.use(upload());
+app.use(cookieParser());
+app.use(express.static(__dirname+"/public"));
+app.get('/',(req,res)=>{
+    res.sendFile(__dirname + '/index.html');
+})
+
+
+
+
+app.post('/', (req,res)=>{
+    
+    res.redirect('/map');
+    // console.log(req.files);
+    const file = req.files.file;
+    // console.log(JSON.parse(file.data.toString('utf-8')));
+    var str = file.data.toString();
+    console.log(str[0]);
+    // console.log(res.cookie('hello','12345'));
+    // console.log(file.);
+    // var data = JSON.stringify(file.data);
+    // var parsed_data = JSON.parse(data);
+    // console.log(JSON.parse(data));
+    // res.send(parsed_data);
+    
+    // var jsondata = data.toJSON();
+    // console.log(jsondata);
+    // // jsondata.array.forEach(element => {
+    //   console.log(element)
+    // })
+    // CSVToJSON().fromFile(file).then(source=>{
+    //     fs.writeFile('./public/some_file.json',JSON.stringify(source),err=>{
+    //         if(err){
+    //             console.log(err);
+    //         }
+    //         else{
+    //             console.log('file uploaded and converted');
+    //         }
+    //     });
+    // })  
+})
+app.get('/map',(req,res)=>{
+    res.sendFile(__dirname + '/map.html');
+})
+
+app.listen(port,()=>{
+    console.log(`server starting on port ${port}`);
+});
+
+//reading the data from the csv and converting it to the json format
+
 
 //using the file system here to read and write the files for the json file
 // fs.readFile('./data.json',(err,data)=>{

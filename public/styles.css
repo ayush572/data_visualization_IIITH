@@ -85,3 +85,6 @@ main {
     color: #ff6808;
     font-size: 14px;
 }
+.hide{
+    opacity: none   ;
+}

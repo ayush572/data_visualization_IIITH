@@ -4,6 +4,22 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap'
 }).addTo(map);
 
+var ids = [];
+function toggle(id){
+  const index = ids.indexOf(id);
+  if (index > -1) { 
+    ids.splice(index, 1);
+    console.log('hello'); 
+    return 0;
+  }
+  else{
+    ids.push(id);
+    console.log(ids);
+    return 0.7;
+  }
+  
+}
+
 const elements = [{"name":"Number of points in the grid", "id":1}, {"name":"Number of events F", "id":2}, {"name":"Number of events H", "id":3}
 , {"name":"Number of events L", "id":4}, {"name":"Number of events P", "id":5}, {"name":"Speed of F", "id":6}, {"name":"Speed of H", "id":7}
 , {"name":"Speed of L", "id":8}, {"name":"Speed of P", "id":9}];
@@ -19,6 +35,7 @@ function generateList(){
     div.appendChild(a);
     a.addEventListener('click',()=>{
 
+      // div.classList.toggle('.hide');
       //user is able to select that which id he wants to see on the webpage
       if(el.id===1)
       {
@@ -59,16 +76,18 @@ function generateList(){
           function style(feature) {
             return {
                 fillColor: getColor(feature.properties.num_of_points),
-                weight: 2,
+                weight: 0,
                 opacity: 1,
-                color: 'grey',
-                dashArray: '3',
-                fillOpacity: 0.7
+                // color: 'grey',
+                // dashArray: '3',
+                fillOpacity: 0.2
             };
           }
-
+          
+          // var datas = L.layerGroup(geojsondata);
           L.geoJSON(geojsondata,{style: style}).addTo(map);
-          console.log(geojsondata);
+          // layerControl.addOverlay(datas, "Parks");
+          // console.log(datas);
           
         }).catch(err=>{
           console.log(err);
@@ -110,11 +129,11 @@ function generateList(){
           function style(feature) {
             return {
                 fillColor: getColor(feature.properties.F),
-                weight: 2,
+                weight: 0,
                 opacity: 1,
-                color: 'grey',
-                dashArray: '3',
-                fillOpacity: 0.7
+                // color: 'grey',
+                // dashArray: '3',
+                fillOpacity: 0.5
             };
           }
 
@@ -161,11 +180,11 @@ function generateList(){
           function style(feature) {
             return {
                 fillColor: getColor(feature.properties.H),
-                weight: 2,
+                weight: 0,
                 opacity: 1,
-                color: 'grey',
-                dashArray: '3',
-                fillOpacity: 0.7
+                // color: 'grey',
+                // dashArray: '3',
+                fillOpacity: 0.5
             };
           }
 
@@ -212,11 +231,11 @@ function generateList(){
           function style(feature) {
             return {
                 fillColor: getColor(feature.properties.L),
-                weight: 2,
+                weight: 0,
                 opacity: 1,
-                color: 'grey',
-                dashArray: '3',
-                fillOpacity: 0.7
+                // color: 'grey',
+                // dashArray: '3',
+                fillOpacity: 0.5
             };
           }
 
@@ -264,11 +283,11 @@ function generateList(){
           function style(feature) {
             return {
                 fillColor: getColor(feature.properties.P),
-                weight: 2,
+                weight: 0,
                 opacity: 1,
-                color: 'grey',
-                dashArray: '3',
-                fillOpacity: 0.7
+                // color: 'grey',
+                // dashArray: '3',
+                fillOpacity: 0.5
             };
           }
 
@@ -317,11 +336,11 @@ function generateList(){
           function style(feature) {
             return {
                 fillColor: getColor(feature.properties.Event_speed),
-                weight: 2,
+                weight: 0,
                 opacity: 1,
-                color: 'grey',
-                dashArray: '3',
-                fillOpacity: 0.7
+                // color: 'grey',
+                // dashArray: '3',
+                fillOpacity: 0.5
             };
           }
 
@@ -372,11 +391,11 @@ function generateList(){
           function style(feature) {
             return {
                 fillColor: getColor(feature.properties.Event_speed),
-                weight: 2,
+                weight: 0,
                 opacity: 1,
-                color: 'grey',
-                dashArray: '3',
-                fillOpacity: 0.7
+                // color: 'grey',
+                // dashArray: '3',
+                fillOpacity: 0.5
             };
           }
 
@@ -427,11 +446,11 @@ function generateList(){
           function style(feature) {
             return {
                 fillColor: getColor(feature.properties.Event_speed),
-                weight: 2,
+                weight: 0,
                 opacity: 1,
-                color: 'grey',
-                dashArray: '3',
-                fillOpacity: 0.7
+                // color: 'grey',
+                // dashArray: '3',
+                fillOpacity: 0.5
             };
           }
 
@@ -482,11 +501,11 @@ function generateList(){
           function style(feature) {
             return {
                 fillColor: getColor(feature.properties.Event_speed),
-                weight: 2,
+                weight: 0,
                 opacity: 1,
-                color: 'grey',
-                dashArray: '3',
-                fillOpacity: 0.7
+                // color: 'grey',
+                // dashArray: '3',
+                fillOpacity: toggle(el.id)
             };
           }
 
